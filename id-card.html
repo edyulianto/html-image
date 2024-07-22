@@ -1,33 +1,44 @@
 <!doctype html>
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
-<html lang="en-US">
-    <body>
-        <div style="width: 100%; height: 100%; position: relative; background: white">
-            <div style="width: 213px; height: 221px; left: -14px; top: 51px; position: absolute; background: linear-gradient(0deg, rgba(255, 255, 255, 0.90) 0%, rgba(255, 255, 255, 0.90) 100%)"></div>
-            <img style="width: 120px;left:-20px; height: 120px;top: 20px; position: absolute; opacity: 50%;" src="https://portal-umum.biofarma.co.id/img/gC0PACC7ArSVFSyAITq3.png" />
-            <div style="width: 187px; height: 11px; left: 1px; top: 32px; position: absolute; text-align: center; color: #040404; font-size: 10px; font-family: Inter; font-weight: 800; word-wrap: break-word">.Code</div>
-            <div style="width: 187px; height: 22px; left: 1px; top: 44px; position: absolute; text-align: center; color: #040404; font-size: 10px; font-family: Inter;font-style: italic; font-weight: 800; word-wrap: break-word">.Regarding</div>
-            <div style="width: 187px; top: 215px; position: absolute; text-align: center; color: #040404; font-size: 10px; font-family: Inter; font-weight: 800; word-wrap: break-word">.Name</div>
-            <!-- if .IsRestrictedArea  -->
-                <div style="width: 191px; height: 80px;  top: 236px; position: absolute; background: #188DA3"></div>
-                <div style="width: 56px; height: 56px; left: 134px; top: 238px; position: absolute; background: #E9E7E8"></div>
-                <img style="width: 56px; height: 56px; left: 134px; top: 238px; position: absolute;" src="data:image/png;base64,.Barcode" />
-                <div style="width: 135px; top: 245px; position: absolute; text-align: center; color: #ffffff; font-size: 6pt; font-family: Inter; font-weight: 800; word-wrap: break-word">Masa Berlaku</div>
-                <div style="width: 135px; top: 260px; position: absolute; text-align: center; color: #ffffff; font-size: 6pt; font-family: Inter; font-weight: 800; word-wrap: break-word">
-                    02 Juli 2024 <br/> 
-                    s/d <br/> 
-                    02 Juli 2025
-                </div>
-                <div style="width: 191px; height: 15px; top: 295px; position: absolute; background: #F2ED6C;"></div>
-                <div style="left: 15px; top: 295px; position: absolute; text-align: center; color: #FF0000; font-size: 12.25px; font-family: Arial, Helvetica, sans-serif; font-weight: bold; line-height:14.83px; word-wrap: break-word">AKSES AREA TERBATAS </div> 
-            <div style="left: 50px; top: 310px; position: absolute; text-align: center; color: white; font-size: 4.79px; font-family: Arial, Helvetica, sans-serif; font-weight: 200; word-wrap: break-word">Bio Farma © Copyright 2024 . All Rights Reserved</div>
-            <div style="width: 95px; height: 126px; left: 44px; top: 83px; border-radius: 5px; position: absolute; background: #0A6B7D; border-radius: 3px; border: 2px #000000 solid"></div>
-            <div style="width: 84px; height: 101px; left: 42px; top: 77.88px; position: absolute"></div>
-            <img style="width: 40px; height: 30px; left: 130px; top: 1px; position: absolute" src="https://portal-umum.biofarma.co.id/img/ee5dcfbc6f21e1ae68033ba5d8a19713.png" />
-            <img style="width: 95px; height: 126px; left: 46px; top: 85px; border-radius: 2px; position: absolute" src="data:image/png;base64,.Photo" />
-        </div>
-    </body>
+<body style="margin: 0;">
+    <div style="width: 540px; height: 856px;">
+        <div style="width: 540px; height: 856px; left: -38.5px; top: 141.25px; position: absolute; background: linear-gradient(0deg, rgba(255, 255, 255, 0.90) 0%, rgba(255, 255, 255, 0.90) 100%)"></div>
+        <img style="width: 330px; left: -55px; height: 330px; top: 55px; position: absolute; opacity: 50%;" src="https://portal-umum.biofarma.co.id/img/gC0PACC7ArSVFSyAITq3.png" />
+        <div style="width: 511.75px; height: 33.75px; left: 3.75px; top: 90px; position: absolute; text-align: center; color: #040404; font-size: 27.5px; font-family: Inter; font-weight: 800; word-wrap: break-word">{{.Code}}</div>
+        <div style="width: 511.75px; height: 74.25px; left: 3.75px; top: 122.5px; position: absolute; text-align: center; color: #040404; font-size: 27.5px; font-family: Inter; font-style: italic; font-weight: 800; word-wrap: break-word">{{.Regarding}}</div>
+        <div style="width: 511.75px; top: 579.25px; position: absolute; text-align: center; color: #040404; font-size: 27.5px; font-family: Inter; font-weight: 800; word-wrap: break-word">{{.Name}}</div>
+        <!-- {{if .IsRestrictedArea }} -->
+            <div style="width: 540px; height: 210px; top: 650px; position: absolute; background: #188DA3"></div>
+            <div style="width: 140px; height: 140px; left: 380px; top: 655px; position: absolute; background: #E9E7E8"></div>
+            <img style="width: 140px; height: 140px; left: 380px; top: 655px; position: absolute;" src="data:image/png;base64,{{.Barcode}}" />
+            <div style="width: 371.875px; top: 660px; position: absolute; text-align: center; color: #ffffff; font-size: 19.25pt; font-family: Inter; font-weight: 800; word-wrap: break-word">Masa Berlaku</div>
+            <div style="width: 371.875px; top: 700px; position: absolute; text-align: center; color: #ffffff; font-size: 19.25pt; font-family: Inter; font-weight: 800; word-wrap: break-word">
+                {{.StartDate}} <br/> 
+                s/d <br/> 
+                {{.EndDate}}
+            </div>
+            <div style="width: 540px; height: 40px; top: 800px; position: absolute; background: #F2ED6C;"></div>
+            <div style="left: 80px; top: 800px; position: absolute; color: #FF0000; font-size: 32px; font-family: Arial, Helvetica, sans-serif; font-weight: bold; line-height: 40.8375px; word-wrap: break-word">AKSES AREA TERBATAS </div>
+            <div style="left: 110px; top: 840px; position: absolute; text-align: center; color: white; font-size: 14.6875px; font-family: Arial, Helvetica, sans-serif; font-weight: 200; word-wrap: break-word">Bio Farma © Copyright 2024 . All Rights Reserved</div>
+        <!-- {{else}}
+            <div style="width: 540px; height: 178.75px; top: 687.5px; position: absolute; background: #188DA3"></div>
+            <div style="width: 152.5px; height: 152.5px; left: 367.5px; top: 696.25px; position: absolute; background: #E9E7E8"></div>
+            <img style="width: 152.5px; height: 152.5px; left: 367.5px; top: 696.25px; position: absolute;" src="data:image/png;base64,{{.Barcode}}" />
+            <div style="width: 371.875px; top: 715px; position: absolute; text-align: center; color: #ffffff; font-size: 19.25pt; font-family: Inter; font-weight: 800; word-wrap: break-word">Masa Berlaku</div>
+            <div style="width: 371.875px; top: 770.625px; position: absolute; text-align: center; color: #ffffff; font-size: 19.25pt; font-family: Inter; font-weight: 800; word-wrap: break-word">
+                {{.StartDate}} <br/> 
+                s/d <br/> 
+                {{.EndDate}}
+            </div>
+        {{end}} -->        
+        <div style="width: 271.875px; height: 354.375px; left: 137.5px; top: 227.5px; border-radius: 5px; position: absolute; background: #0A6B7D; border-radius: 3px; border: 2px #000000 solid"></div>
+        <div style="width: 236.25px; height: 276.875px; left: 131.25px; top: 215.625px; position: absolute"></div>
+        <img style="width: 137.5px; height: 101.25px; left: 357.5px; top: 8.75px; position: absolute" src="https://portal-umum.biofarma.co.id/img/ee5dcfbc6f21e1ae68033ba5d8a19713.png" />
+        <img style="width: 271.875px; height: 354.375px; left: 142.5px; top: 231.25px; border-radius: 2px; position: absolute" src="data:image/png;base64,{{.Photo}}" />
+    </div>
+</body>
 </html>
