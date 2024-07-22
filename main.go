@@ -7,7 +7,7 @@ import (
 
 func main() {
 	// Define the command to execute wkhtmltoimage
-	cmd := exec.Command("wkhtmltoimage", "--height", "860", "--width", "540", "--disable-smart-width", "--quality", "100", "id-card.html", "output.png")
+	cmd := exec.Command("wkhtmltoimage", "--height", "860", "--width", "540", "--disable-smart-width", "--quality", "100", "id-card-design.html", "output.png")
 
 	// Run the command and capture any errors
 	err := cmd.Run()
