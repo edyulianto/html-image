@@ -1,32 +1,49 @@
 <!DOCTYPE html>
-<html><head><title>Flexbox test</title>
-<style>
-body {
-  width: 800px;
-  border: 2px solid green;
-}
-.flexrow {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  display: -webkit-flex;
-  -webkit-flex-direction: row;
-  /* -webkit-justify-content: space-between; */
-}
-.flexrow > div {
-  background-color: yellow;
-  border: 1px dashed black;
-}
-</style>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid Layout for Safari 5.1</title>
+  <style>
+    .container {
+      width: 100%;
+      overflow: hidden;
+    }
+    .column {
+      float: left;
+      width: 33.33%; /* 3 columns */
+      box-sizing: border-box;
+      padding: 10px;
+    }
+    .column-2 {
+      width: 50%; /* 2 columns */
+    }
+    .column-4 {
+      width: 25%; /* 4 columns */
+    }
+    .content {
+      background-color: #ddd;
+      padding: 20px;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .column, .column-2, .column-4 {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="flexrow">
-    <div>This is<br>item 1</div>
-    <div>This is<br>item 2</div>
-    <div>This is<br>item 3</div>
-    <div>This is<br>item 4</div>
-    <div>This is<br>item 5</div>
+  <div class="container">
+    <div class="column">
+      <div class="content">Column 1</div>
+    </div>
+    <div class="column">
+      <div class="content">Column 2</div>
+    </div>
+    <div class="column">
+      <div class="content">Column 3</div>
+    </div>
   </div>
 </body>
 </html>

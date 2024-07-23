@@ -1,67 +1,73 @@
 package main
 
 import (
-	"fmt"
+	"context"
 	_ "image/png"
+	"io/ioutil"
+	"log"
 	"os"
-	"os/exec"
+	"sync"
+	"time"
+
+	"github.com/chromedp/cdproto/page"
+	"github.com/chromedp/chromedp"
 )
 
-// func main() {
-// 	// Define the command to execute wkhtmltoimage
-// 	cmd := exec.Command("wkhtmltoimage", "--disable-smart-width", "--quality", "100", "--zoom", "1", "id-card.html", "output.png")
-
-// 	// Run the command and capture any errors
-// 	err := cmd.Run()
-// 	if err != nil {
-// 		log.Fatalf("Failed to create image: %v", err.Error())
-// 	}
-
-// 	log.Println("Image generated successfully")
-
-// 	file, err := os.Open("output.png")
-// 	if err != nil {
-// 		log.Fatalf("Failed to open file: %v", err)
-// 	}
-// 	defer file.Close()
-
-// 	image, _, err := image.Decode(file)
-// 	if err != nil {
-// 		log.Fatalf("Failed to encode image: %v", err)
-// 	}
-
-// 	newImage := resize.Resize(227, 0, image, resize.NearestNeighbor)
-
-// 	// Encode uses a Writer, use a Buffer if you need the raw []byte
-// 	outFile, err := os.Create("resized.jpg")
-// 	if err != nil {
-// 		log.Fatalf("Failed to create file: %v", err)
-// 	}
-// 	defer outFile.Close()
-// 	err = jpeg.Encode(outFile, newImage, nil)
-// 	if err != nil {
-// 		log.Fatalf("Failed to encode image: %v", err)
-// 	}
-// }
-
 func main() {
-	// Define the input HTML file and the output PDF file
-	inputHTML := "id-card-design-ktp.html"
-	outputPDF := "output.pdf"
+	// Path ke file HTML
+	htmlFilePath := "id-card-design-ktp.html"
 
-	// Create the command to execute wkhtmltopdf
-	cmd := exec.Command("wkhtmltopdf", inputHTML, outputPDF)
-
-	// Set the command's stdout and stderr to the system's stdout and stderr
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-
-	// Run the command
-	err := cmd.Run()
+	// Baca isi file HTML
+	htmlData, err := os.ReadFile(htmlFilePath)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error running wkhtmltopdf: %v\n", err)
-		os.Exit(1)
+		log.Fatalf("Failed to read HTML file: %v", err)
 	}
 
-	fmt.Println("PDF generated successfully")
+	// Buat context Chrome
+	ctx, cancel := chromedp.NewContext(context.Background())
+	defer cancel()
+
+	// Gunakan timeout untuk mencegah infinite wait
+	ctx, cancel = context.WithTimeout(ctx, 30*time.Second)
+	defer cancel()
+
+	if err := chromedp.Run(ctx,
+		// the navigation will trigger the "page.EventLoadEventFired" event too,
+		// so we should add the listener after the navigation.
+		chromedp.Navigate("about:blank"),
+		// set the page content and wait until the page is loaded (including its resources).
+		chromedp.ActionFunc(func(ctx context.Context) error {
+			lctx, cancel := context.WithCancel(ctx)
+			defer cancel()
+			var wg sync.WaitGroup
+			wg.Add(1)
+			chromedp.ListenTarget(lctx, func(ev interface{}) {
+				if _, ok := ev.(*page.EventLoadEventFired); ok {
+					// It's a good habit to remove the event listener if we don't need it anymore.
+					cancel()
+					wg.Done()
+				}
+			})
+
+			frameTree, err := page.GetFrameTree().Do(ctx)
+			if err != nil {
+				return err
+			}
+
+			if err := page.SetDocumentContent(frameTree.Frame.ID, string(htmlData)).Do(ctx); err != nil {
+				return err
+			}
+			wg.Wait()
+			return nil
+		}),
+		chromedp.ActionFunc(func(ctx context.Context) error {
+			buf, _, err := page.PrintToPDF().WithPrintBackground(true).Do(ctx)
+			if err != nil {
+				return err
+			}
+			return ioutil.WriteFile("sample.pdf", buf, 0644)
+		}),
+	); err != nil {
+		log.Fatal(err)
+	}
 }

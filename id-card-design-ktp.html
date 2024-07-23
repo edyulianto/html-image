@@ -14,11 +14,6 @@
             border: 1px solid black;
         }
 
-        .flex-grid {
-            flex-direction:row;
-            width: 800px;
-        }
-
         .flex-grid > div {
             margin: 6px;
         }
@@ -101,6 +96,13 @@
             display: -moz-box;
             display: -ms-flexbox;
             display: flex;
+        }
+
+        .flex-wrap {
+            -webkit-flex-wrap: wrap; /* Dukungan WebKit */
+            -ms-flex-wrap: wrap; /* Dukungan IE 10 */
+            flex-wrap: wrap; /* Standar */
+            gap: 10px;
         }
 
         .flex-column {
@@ -246,7 +248,7 @@
     </style>
 </head>
 <body style="margin:0px;">
-    <div class="flex flex-grid">
+    <div class="flex flex-wrap">
         <div class="id-card-container">
             <div class="header">
                 <img style="height: 30px;" src="https://portal-umum.biofarma.co.id/img/ee5dcfbc6f21e1ae68033ba5d8a19713.png" />
