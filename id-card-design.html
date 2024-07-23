@@ -256,14 +256,16 @@
                     </div>
                 </div>
                 <div style="width: 180px;" class="flex flex-column flex-align-center">
-                    <img class="qr" src="data:image/png;base64,{{.Photo}}"/> 
+                    <img class="qr" src="data:image/png;base64,{{.Barcode}}"/> 
                 </div>
             </div>
+            {{if .IsRestrictedArea }}
             <div class="flex">
                 <div class="flex flex-justify-center flex-align-center restricted-area-label">
                     AKSES AREA TERBATAS
                 </div>
             </div>
+            {{end}}
             <div class="flex flex-self-center flex-align-center flex-justify-center">
                 <div class="copyright">
                     Bio Farma © Copyright 2024. Bio Farma
